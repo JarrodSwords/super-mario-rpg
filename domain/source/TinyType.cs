@@ -27,5 +27,11 @@ namespace SuperMarioRpg.Domain
         }
 
         #endregion
+
+        #region Static Interface
+
+        public static implicit operator T(TinyType<T> source) => source is null ? default : source.Value;
+
+        #endregion
     }
 }

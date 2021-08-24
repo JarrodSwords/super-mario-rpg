@@ -22,7 +22,7 @@ namespace SuperMarioRpg.Domain.Spec
         {
             var id = new Id();
 
-            id.Value.Should().NotBeEmpty();
+            ((Guid) id).Should().NotBeEmpty();
         }
 
         #endregion
