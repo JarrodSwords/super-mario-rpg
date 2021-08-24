@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace SuperMarioRpg.Domain.Spec
@@ -44,42 +43,5 @@ namespace SuperMarioRpg.Domain.Spec
         }
 
         #endregion
-
-        public class FooSpec : ValueObjectSpec
-        {
-            #region Protected Interface
-
-            protected override ValueObject Create() => new Foo(1);
-            protected override ValueObject CreateOther() => new Foo(2);
-
-            #endregion
-        }
-
-        private class Foo : ValueObject
-        {
-            #region Creation
-
-            public Foo(int bar)
-            {
-                Bar = bar;
-            }
-
-            #endregion
-
-            #region Public Interface
-
-            public int Bar { get; }
-
-            #endregion
-
-            #region Equality
-
-            public override IEnumerable<object> GetEqualityComponents()
-            {
-                yield return Bar;
-            }
-
-            #endregion
-        }
     }
 }
