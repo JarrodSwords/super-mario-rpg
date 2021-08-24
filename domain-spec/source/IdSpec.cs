@@ -21,8 +21,9 @@ namespace SuperMarioRpg.Domain.Spec
         public void WhenCreating_WithoutValue_ValueGenerated()
         {
             var id = new Id();
+            Guid value = id;
 
-            ((Guid) id).Should().NotBeEmpty();
+            value.Should().NotBeEmpty();
         }
 
         #endregion
