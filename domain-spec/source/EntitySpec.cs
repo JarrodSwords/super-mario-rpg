@@ -14,6 +14,15 @@ namespace SuperMarioRpg.Domain.Spec
         #region Test Methods
 
         [Fact]
+        public void WhenCheckingEquality_WithDifferentId_HasIdentifierInequality()
+        {
+            var entity1 = Create();
+            var entity2 = Create();
+
+            entity2.Should().NotBe(entity1);
+        }
+
+        [Fact]
         public void WhenCheckingEquality_WithSameId_HasIdentifierEquality()
         {
             var id = new Id();
@@ -31,6 +40,14 @@ namespace SuperMarioRpg.Domain.Spec
             var entity2 = entity1;
 
             entity2.Should().BeSameAs(entity2);
+        }
+
+        [Fact]
+        public void WhenCreating_WithoutId_IdCreated()
+        {
+            var entity = Create();
+
+            entity.Id.Should().NotBeNull();
         }
 
         #endregion
