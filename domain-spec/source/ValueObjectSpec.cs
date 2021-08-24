@@ -9,10 +9,20 @@ namespace SuperMarioRpg.Domain.Spec
         #region Protected Interface
 
         protected abstract ValueObject Create();
+        protected abstract ValueObject CreateOther();
 
         #endregion
 
         #region Test Methods
+
+        [Fact]
+        public void WhenCheckingEquality_WithDifferentStructure_HasStructuralInequality()
+        {
+            var valueObject1 = Create();
+            var valueObject2 = CreateOther();
+
+            valueObject2.Should().NotBe(valueObject1);
+        }
 
         [Fact]
         public void WhenCheckingEquality_WithSameReference_HasReferentialEquality()
@@ -40,6 +50,7 @@ namespace SuperMarioRpg.Domain.Spec
             #region Protected Interface
 
             protected override ValueObject Create() => new Foo(1);
+            protected override ValueObject CreateOther() => new Foo(2);
 
             #endregion
         }
