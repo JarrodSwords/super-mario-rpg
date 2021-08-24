@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "domain", "domain\domain.csproj", "{1B6F06A8-3658-4645-B51B-82C335103576}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "domain", "domain\domain.csproj", "{1B6F06A8-3658-4645-B51B-82C335103576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "domain-spec", "domain-spec\domain-spec.csproj", "{1837DBD2-EF98-4B0C-AC20-77428C8BEBA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "domain-spec", "domain-spec\domain-spec.csproj", "{1837DBD2-EF98-4B0C-AC20-77428C8BEBA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1B6F06A8-3658-4645-B51B-82C335103576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,11 @@ Global
 		{1837DBD2-EF98-4B0C-AC20-77428C8BEBA2}.Release|x64.Build.0 = Release|Any CPU
 		{1837DBD2-EF98-4B0C-AC20-77428C8BEBA2}.Release|x86.ActiveCfg = Release|Any CPU
 		{1837DBD2-EF98-4B0C-AC20-77428C8BEBA2}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5987D5CE-1135-4DDC-A6E3-470DC635A5F9}
 	EndGlobalSection
 EndGlobal
