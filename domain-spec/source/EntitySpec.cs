@@ -7,11 +7,22 @@ namespace SuperMarioRpg.Domain.Spec
     {
         #region Protected Interface
 
-        protected abstract Entity Create();
+        protected abstract Entity Create(Id id = default);
 
         #endregion
 
         #region Test Methods
+
+        [Fact]
+        public void WhenCheckingEquality_WithSameId_HasIdentifierEquality()
+        {
+            var id = new Id();
+            var entity1 = Create(id);
+            var entity2 = Create(id);
+
+            entity2.Should().NotBeSameAs(entity1);
+            entity2.Should().Be(entity1);
+        }
 
         [Fact]
         public void WhenCheckingEquality_WithSameReference_HasReferentialEquality()
@@ -28,13 +39,20 @@ namespace SuperMarioRpg.Domain.Spec
         {
             #region Protected Interface
 
-            protected override Entity Create() => new Foo();
+            protected override Entity Create(Id id = default) => new Foo(id);
 
             #endregion
         }
 
         private class Foo : Entity
         {
+            #region Creation
+
+            public Foo(Id id) : base(id)
+            {
+            }
+
+            #endregion
         }
     }
 }
