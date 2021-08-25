@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SuperMarioRpg.Domain;
 
 namespace SuperMarioRpg.GameDevelopment
@@ -7,7 +8,7 @@ namespace SuperMarioRpg.GameDevelopment
     {
         #region Creation
 
-        protected Character(string name) : base(default)
+        protected Character(Name name) : base(default)
         {
             PendingEvents.Add(new CharacterDefined(name));
         }
@@ -18,19 +19,27 @@ namespace SuperMarioRpg.GameDevelopment
 
         public List<IEvent> PendingEvents { get; } = new();
 
-        public void Rename(string name)
+        public Character Rename(Name name)
         {
             PendingEvents.Add(new CharacterRenamed(name));
+            return this;
         }
 
         #endregion
 
         #region Static Interface
 
-        public static Result Define(string name) =>
-            string.IsNullOrWhiteSpace(name)
-                ? Result.Failure($"{nameof(name)} cannot be empty")
-                : Result.Success(new Character(name));
+        public static Result Define(Name name)
+        {
+            try
+            {
+                return Result.Success(new Character(name));
+            }
+            catch (Exception e)
+            {
+                return Result.Failure(e.Message);
+            }
+        }
 
         #endregion
     }

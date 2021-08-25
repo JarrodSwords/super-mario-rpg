@@ -36,17 +36,6 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void WhenDefiningCharacter_WithInvalidName_Fails(string name)
-        {
-            var result = Character.Define(name);
-
-            result.WasFailure().Should().BeTrue();
-        }
-
-        [Theory]
         [InlineData("Mallow")]
         [InlineData("Geno")]
         public void WhenRenaming_CharacterRenamed(string name)
