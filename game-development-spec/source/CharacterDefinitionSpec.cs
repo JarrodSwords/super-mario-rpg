@@ -9,12 +9,15 @@ namespace SuperMarioRpg.GameDevelopment.Spec
     {
         #region Core
 
-        private readonly Character _character;
+        private readonly Id _characterId;
+        private readonly ICharacterRepository _characterRepository;
 
         public CharacterDefinitionSpec()
         {
             var result = Character.Define("Mario");
-            _character = ((Result<Character>) result).Value;
+            var character = ((Result<Character>) result).Value;
+            _characterId = character.Id;
+            _characterRepository = new CharacterRepository().Create(character);
         }
 
         #endregion
@@ -40,9 +43,11 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         [InlineData("Geno")]
         public void WhenRenaming_CharacterRenamed(string name)
         {
-            _character.Rename(name);
+            var character = _characterRepository
+                .Find(_characterId)
+                .Rename(name);
 
-            var @event = (CharacterRenamed) _character.GetPendingEvents().Last();
+            var @event = (CharacterRenamed) character.GetPendingEvents().Last();
 
             @event.Name.Should().Be(name);
             @event.Type.Should().Be(nameof(CharacterRenamed));

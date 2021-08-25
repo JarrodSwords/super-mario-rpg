@@ -1,9 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SuperMarioRpg.Domain;
 
 namespace SuperMarioRpg.GameDevelopment
 {
+    public interface ICharacterRepository
+    {
+        ICharacterRepository Create(Character character);
+        Character Find(Id id);
+    }
+
+    public class CharacterRepository : ICharacterRepository
+    {
+        private readonly Dictionary<Id, List<IEvent>> _streams = new();
+
+        #region ICharacterRepository Implementation
+
+        public ICharacterRepository Create(Character character)
+        {
+            _streams.Add(character.Id, character.GetPendingEvents().ToList());
+            return this;
+        }
+
+        public Character Find(Id id) =>
+            _streams.ContainsKey(id)
+                ? Character.From(id, _streams[id].ToArray())
+                : null;
+
+        #endregion
+    }
+
     public class Character : Aggregate, IEventSourced
     {
         private readonly EventSourced _eventSourced = new();
@@ -75,6 +102,8 @@ namespace SuperMarioRpg.GameDevelopment
                 return Result.Failure(e.Message);
             }
         }
+
+        public static Character From(Id id, params IEvent[] events) => new(id, events);
 
         #endregion
 
