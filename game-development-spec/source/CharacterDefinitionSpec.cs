@@ -9,13 +9,17 @@ namespace SuperMarioRpg.GameDevelopment.Spec
     {
         #region Test Methods
 
-        [Fact]
-        public void WhenDefiningCharacter_CharacterInitialized()
+        [Theory]
+        [InlineData("Mario")]
+        [InlineData("Chancellor")]
+        public void WhenDefiningCharacter_CharacterInitialized(string name)
         {
-            var result = Character.Define("Mario");
+            var result = Character.Define(name);
 
-            var @event = ((Result<Character>) result).Value.PendingEvents.Last();
+            var character = ((Result<Character>) result).Value;
+            var @event = (CharacterDefined) character.PendingEvents.Last();
 
+            @event.Name.Should().Be(name);
             @event.Type.Should().Be(nameof(CharacterDefined));
         }
 
