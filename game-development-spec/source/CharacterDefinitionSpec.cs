@@ -27,7 +27,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         [Theory]
         [InlineData("Mario")]
         [InlineData("Chancellor")]
-        public void WhenDefiningCharacter_CharacterInitialized(string name)
+        public void WhenCreating_CharacterInitialized(string name)
         {
             var character = Character.Create(name);
 
