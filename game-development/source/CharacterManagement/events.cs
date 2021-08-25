@@ -1,7 +1,7 @@
 ﻿using System;
 using SuperMarioRpg.Domain;
 
-namespace SuperMarioRpg.GameDevelopment
+namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 {
     public record CharacterCreated : Event
     {
@@ -22,4 +22,6 @@ namespace SuperMarioRpg.GameDevelopment
     }
 
     public record CharacterRenamed(string Name) : Event;
+
+    public record RenameRejected : Event;
 }

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using SuperMarioRpg.Domain;
 
-namespace SuperMarioRpg.GameDevelopment
+namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 {
     public class Character : IEventSourced
     {
@@ -15,7 +14,8 @@ namespace SuperMarioRpg.GameDevelopment
         {
             _eventProcessor
                 .Register<CharacterCreated>(Handler)
-                .Register<CharacterRenamed>(Handler);
+                .Register<CharacterRenamed>(Handler)
+                .Register<RenameRejected>();
         }
 
         private Character(Name name) : this()
@@ -35,11 +35,16 @@ namespace SuperMarioRpg.GameDevelopment
 
         #region Public Interface
 
-        public Id Id => _projection.Id ?? ((CharacterCreated) _eventProcessor.GetPendingEvents().First()).CharacterId;
+        public Id Id => _projection.Id ?? ((CharacterCreated) _eventProcessor.GetPendingEvents()[0]).CharacterId;
 
         public Character Rename(Name name)
         {
-            _eventProcessor.Append(new CharacterRenamed(name));
+            _eventProcessor.Append(
+                name == _projection.Name
+                    ? new RenameRejected()
+                    : new CharacterRenamed(name)
+            );
+
             return this;
         }
 

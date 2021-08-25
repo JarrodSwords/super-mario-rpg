@@ -2,7 +2,7 @@
 using System.Linq;
 using SuperMarioRpg.Domain;
 
-namespace SuperMarioRpg.GameDevelopment
+namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 {
     public class CharacterRepository : ICharacterRepository
     {

@@ -32,6 +32,16 @@ namespace SuperMarioRpg.Domain
 
         public static implicit operator T(TinyType<T> source) => source is null ? default : source.Value;
 
+        public static bool operator ==(TinyType<T> left, TinyType<T> right)
+        {
+            if (left is null)
+                return right is null;
+
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(TinyType<T> left, TinyType<T> right) => !(left == right);
+
         #endregion
     }
 }

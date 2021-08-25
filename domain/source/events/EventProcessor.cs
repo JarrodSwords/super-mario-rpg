@@ -21,8 +21,10 @@ namespace SuperMarioRpg.Domain
             return this;
         }
 
-        public EventProcessor Register<T>(Action<T> handler) where T : IEvent
+        public EventProcessor Register<T>(Action<T> handler = default) where T : IEvent
         {
+            handler ??= _ => { };
+
             _handlers.Add(typeof(T), e => handler((T) e));
             return this;
         }
