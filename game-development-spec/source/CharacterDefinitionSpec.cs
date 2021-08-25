@@ -7,6 +7,18 @@ namespace SuperMarioRpg.GameDevelopment.Spec
 {
     public class CharacterDefinitionSpec
     {
+        #region Core
+
+        private readonly Character _character;
+
+        public CharacterDefinitionSpec()
+        {
+            var result = Character.Define("Mario");
+            _character = ((Result<Character>) result).Value;
+        }
+
+        #endregion
+
         #region Test Methods
 
         [Theory]
@@ -32,6 +44,19 @@ namespace SuperMarioRpg.GameDevelopment.Spec
             var result = Character.Define(name);
 
             result.WasFailure().Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData("Mallow")]
+        [InlineData("Geno")]
+        public void WhenRenaming_CharacterRenamed(string name)
+        {
+            _character.Rename(name);
+
+            var @event = (CharacterRenamed) _character.PendingEvents.Last();
+
+            @event.Name.Should().Be(name);
+            @event.Type.Should().Be(nameof(CharacterRenamed));
         }
 
         #endregion

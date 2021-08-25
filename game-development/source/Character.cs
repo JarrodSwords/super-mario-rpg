@@ -18,6 +18,11 @@ namespace SuperMarioRpg.GameDevelopment
 
         public List<IEvent> PendingEvents { get; } = new();
 
+        public void Rename(string name)
+        {
+            PendingEvents.Add(new CharacterRenamed(name));
+        }
+
         #endregion
 
         #region Static Interface
