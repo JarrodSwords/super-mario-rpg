@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using SuperMarioRpg.Domain;
 using Xunit;
 
 namespace SuperMarioRpg.GameDevelopment.Spec
@@ -13,8 +12,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
 
         public CharacterDefinitionSpec()
         {
-            var result = Character.Define("Mario");
-            var character = ((Result<Character>) result).Value;
+            var character = Character.Create("Mario");
             _character = new CharacterRepository()
                 .Create(character)
                 .Find(character.Id);
@@ -31,9 +29,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         [InlineData("Chancellor")]
         public void WhenDefiningCharacter_CharacterInitialized(string name)
         {
-            var result = Character.Define(name);
-
-            var character = ((Result<Character>) result).Value;
+            var character = Character.Create(name);
 
             _sut.Set(character)
                 .Assert<CharacterDefined>(x => x.Name.Should().Be(name))
