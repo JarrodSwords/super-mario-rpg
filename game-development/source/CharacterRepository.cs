@@ -12,13 +12,16 @@ namespace SuperMarioRpg.GameDevelopment
 
         public ICharacterRepository Create(Character character)
         {
-            _streams.Add(character.Id, character.GetPendingEvents().ToList());
+            var events = character.GetPendingEvents().ToList();
+            var createdEvent = (CharacterCreated) events.First();
+
+            _streams.Add(createdEvent.CharacterId, events);
             return this;
         }
 
         public Character Find(Id id) =>
             _streams.ContainsKey(id)
-                ? Character.From(id, _streams[id].ToArray())
+                ? Character.From(_streams[id].ToArray())
                 : null;
 
         #endregion

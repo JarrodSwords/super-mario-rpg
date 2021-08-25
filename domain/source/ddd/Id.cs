@@ -11,5 +11,11 @@ namespace SuperMarioRpg.Domain
         }
 
         #endregion
+
+        #region Static Interface
+
+        public static implicit operator Id(Guid source) => new(source);
+
+        #endregion
     }
 }

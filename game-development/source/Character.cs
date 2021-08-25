@@ -1,38 +1,41 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SuperMarioRpg.Domain;
 
 namespace SuperMarioRpg.GameDevelopment
 {
-    public class Character : Aggregate, IEventSourced
+    public class Character : IEventSourced
     {
         private readonly EventProcessor _eventProcessor = new();
         private Projection _projection = new();
 
         #region Creation
 
-        public Character(Id id, params IEvent[] events) : this(id)
+        private Character()
         {
-            _eventProcessor.Replay(events);
+            _eventProcessor
+                .Register<CharacterCreated>(Handler)
+                .Register<CharacterRenamed>(Handler);
         }
 
-        protected Character(Name name) : this()
+        private Character(Name name) : this()
         {
             _eventProcessor.Append(
-                new CharacterDefined(name),
+                new CharacterCreated(),
                 new CharacterRenamed(name)
             );
         }
 
-        private Character(Id id = default) : base(id)
+        private Character(params IEvent[] events) : this()
         {
-            _eventProcessor
-                .Register<CharacterDefined>(Handler)
-                .Register<CharacterRenamed>(Handler);
+            _eventProcessor.Replay(events);
         }
 
         #endregion
 
         #region Public Interface
+
+        public Id Id => _projection.Id ?? ((CharacterCreated) _eventProcessor.GetPendingEvents().First()).CharacterId;
 
         public Character Rename(Name name)
         {
@@ -44,14 +47,14 @@ namespace SuperMarioRpg.GameDevelopment
 
         #region Private Interface
 
-        private void Handler(CharacterDefined e)
+        private void Handler(CharacterCreated e)
         {
-            _projection = _projection with { name = e.Name };
+            _projection = _projection with { Id = e.CharacterId };
         }
 
         private void Handler(CharacterRenamed e)
         {
-            _projection = _projection with { name = e.Name };
+            _projection = _projection with { Name = e.Name };
         }
 
         #endregion
@@ -65,10 +68,10 @@ namespace SuperMarioRpg.GameDevelopment
         #region Static Interface
 
         public static Character Create(Name name) => new(name);
-        public static Character From(Id id, params IEvent[] events) => new(id, events);
+        public static Character From(params IEvent[] events) => new(events);
 
         #endregion
 
-        private record Projection(Name name = default);
+        private record Projection(Id Id = default, Name Name = default);
     }
 }

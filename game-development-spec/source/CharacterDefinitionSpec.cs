@@ -32,7 +32,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
             var character = Character.Create(name);
 
             _sut.Set(character)
-                .Assert<CharacterDefined>(x => x.Name.Should().Be(name))
+                .Assert<CharacterCreated>(x => x.CharacterId.Should().NotBeEmpty())
                 .Assert<CharacterRenamed>(x => x.Name.Should().Be(name));
         }
 
