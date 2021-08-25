@@ -9,6 +9,7 @@ namespace SuperMarioRpg.Domain
         protected Event()
         {
             Id = Guid.NewGuid();
+            Type = GetType().Name;
         }
 
         #endregion
@@ -16,7 +17,7 @@ namespace SuperMarioRpg.Domain
         #region IEvent Implementation
 
         public Guid Id { get; }
-        public string Type => GetType().Name;
+        public string Type { get; }
 
         #endregion
     }
