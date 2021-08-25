@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SuperMarioRpg.Domain;
 
-namespace SuperMarioRpg.GameDevelopment
+namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 {
     public class Character : IEventSourced
     {

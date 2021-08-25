@@ -1,6 +1,6 @@
 ﻿using SuperMarioRpg.Domain;
 
-namespace SuperMarioRpg.GameDevelopment
+namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 {
     public interface ICharacterRepository
     {

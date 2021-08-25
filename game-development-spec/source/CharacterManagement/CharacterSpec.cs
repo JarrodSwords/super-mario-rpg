@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
+using SuperMarioRpg.GameDevelopment.CharacterManagement;
 using Xunit;
 
-namespace SuperMarioRpg.GameDevelopment.Spec
+namespace SuperMarioRpg.GameDevelopment.Spec.CharacterManagement
 {
-    public class CharacterDefinitionSpec
+    public class CharacterSpec
     {
         #region Core
 
@@ -11,7 +12,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         private readonly Character _character;
         private readonly SystemUnderTest _sut;
 
-        public CharacterDefinitionSpec()
+        public CharacterSpec()
         {
             var character = Character.Create(Mario);
             _character = new CharacterRepository()
