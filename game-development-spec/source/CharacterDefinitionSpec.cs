@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using SuperMarioRpg.Domain;
 using Xunit;
 
@@ -11,6 +9,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         #region Core
 
         private readonly Character _character;
+        private readonly SystemUnderTest _sut;
 
         public CharacterDefinitionSpec()
         {
@@ -19,23 +18,8 @@ namespace SuperMarioRpg.GameDevelopment.Spec
             _character = new CharacterRepository()
                 .Create(character)
                 .Find(character.Id);
-        }
 
-        #endregion
-
-        #region Private Interface
-
-        private static void Assert<T>(
-            IEventSourced aggregate,
-            params Action<T>[] conditions
-        ) where T : IEvent
-        {
-            var pendingEvents = aggregate.GetPendingEvents().ToList();
-            pendingEvents.Should().ContainSingle(x => x.GetType() == typeof(T));
-
-            var @event = pendingEvents.First(x => x.GetType() == typeof(T));
-            foreach (var condition in conditions)
-                condition.Invoke((T) @event);
+            _sut = new SystemUnderTest().Set(_character);
         }
 
         #endregion
@@ -51,11 +35,9 @@ namespace SuperMarioRpg.GameDevelopment.Spec
 
             var character = ((Result<Character>) result).Value;
 
-            Assert<CharacterDefined>(
-                character,
-                x => x.Name.Should().Be(name),
-                x => x.Type.Should().Be(nameof(CharacterDefined))
-            );
+            _sut.Set(character)
+                .Assert<CharacterDefined>(x => x.Name.Should().Be(name))
+                .Assert<CharacterRenamed>(x => x.Name.Should().Be(name));
         }
 
         [Theory]
@@ -65,11 +47,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         {
             _character.Rename(name);
 
-            Assert<CharacterRenamed>(
-                _character,
-                x => x.Name.Should().Be(name),
-                x => x.Type.Should().Be(nameof(CharacterRenamed))
-            );
+            _sut.Assert<CharacterRenamed>(x => x.Name.Should().Be(name));
         }
 
         #endregion
