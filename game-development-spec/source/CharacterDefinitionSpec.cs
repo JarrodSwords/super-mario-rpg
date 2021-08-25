@@ -7,12 +7,13 @@ namespace SuperMarioRpg.GameDevelopment.Spec
     {
         #region Core
 
+        private const string Mario = "Mario";
         private readonly Character _character;
         private readonly SystemUnderTest _sut;
 
         public CharacterDefinitionSpec()
         {
-            var character = Character.Create("Mario");
+            var character = Character.Create(Mario);
             _character = new CharacterRepository()
                 .Create(character)
                 .Find(character.Id);
@@ -44,6 +45,14 @@ namespace SuperMarioRpg.GameDevelopment.Spec
             _character.Rename(name);
 
             _sut.Assert<CharacterRenamed>(x => x.Name.Should().Be(name));
+        }
+
+        [Fact]
+        public void WhenRenaming_WithSameName_RenameRejected()
+        {
+            _character.Rename(Mario);
+
+            _sut.Assert<RenameRejected>();
         }
 
         #endregion

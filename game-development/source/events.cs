@@ -22,4 +22,6 @@ namespace SuperMarioRpg.GameDevelopment
     }
 
     public record CharacterRenamed(string Name) : Event;
+
+    public record RenameRejected : Event;
 }
