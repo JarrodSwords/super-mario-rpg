@@ -7,7 +7,7 @@ namespace SuperMarioRpg.GameDevelopment
     {
         #region Creation
 
-        public Character(string name) : base(default)
+        protected Character(string name) : base(default)
         {
             PendingEvents.Add(new CharacterDefined(name));
         }
@@ -17,6 +17,15 @@ namespace SuperMarioRpg.GameDevelopment
         #region Public Interface
 
         public List<IEvent> PendingEvents { get; } = new();
+
+        #endregion
+
+        #region Static Interface
+
+        public static Result Define(string name) =>
+            string.IsNullOrWhiteSpace(name)
+                ? Result.Failure($"{nameof(name)} cannot be empty")
+                : Result.Success(new Character(name));
 
         #endregion
     }

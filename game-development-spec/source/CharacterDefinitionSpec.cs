@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FluentAssertions;
+using SuperMarioRpg.Domain;
 using Xunit;
 
 namespace SuperMarioRpg.GameDevelopment.Spec
@@ -11,11 +12,22 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         [Fact]
         public void WhenDefiningCharacter_CharacterInitialized()
         {
-            var character = new Character("Mario");
+            var result = Character.Define("Mario");
 
-            var @event = character.PendingEvents.Last();
+            var @event = ((Result<Character>) result).Value.PendingEvents.Last();
 
             @event.Type.Should().Be(nameof(CharacterDefined));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void WhenDefiningCharacter_WithInvalidName_Fails(string name)
+        {
+            var result = Character.Define(name);
+
+            result.WasFailure().Should().BeTrue();
         }
 
         #endregion
