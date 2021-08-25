@@ -52,7 +52,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
             var character = ((Result<Character>) result).Value;
 
             Assert<CharacterDefined>(
-                _character,
+                character,
                 x => x.Name.Should().Be(name),
                 x => x.Type.Should().Be(nameof(CharacterDefined))
             );
