@@ -29,7 +29,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
             var result = Character.Define(name);
 
             var character = ((Result<Character>) result).Value;
-            var @event = (CharacterDefined) character.PendingEvents.Last();
+            var @event = (CharacterDefined) character.GetPendingEvents().Last();
 
             @event.Name.Should().Be(name);
             @event.Type.Should().Be(nameof(CharacterDefined));
@@ -42,7 +42,7 @@ namespace SuperMarioRpg.GameDevelopment.Spec
         {
             _character.Rename(name);
 
-            var @event = (CharacterRenamed) _character.PendingEvents.Last();
+            var @event = (CharacterRenamed) _character.GetPendingEvents().Last();
 
             @event.Name.Should().Be(name);
             @event.Type.Should().Be(nameof(CharacterRenamed));

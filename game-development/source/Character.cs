@@ -4,26 +4,61 @@ using SuperMarioRpg.Domain;
 
 namespace SuperMarioRpg.GameDevelopment
 {
-    public class Character : Aggregate
+    public class Character : Aggregate, IEventSourced
     {
+        private readonly EventSourced _eventSourced = new();
+        private Projection _projection;
+
         #region Creation
 
-        protected Character(Name name) : base(default)
+        public Character(Id id, params IEvent[] events) : this(id)
         {
-            PendingEvents.Add(new CharacterDefined(name));
+            _eventSourced.Replay(events);
+        }
+
+        protected Character(Name name) : this()
+        {
+            _eventSourced.Append(new CharacterDefined(name));
+        }
+
+        private Character(Id id = default) : base(id)
+        {
+            _projection = new Projection();
+
+            _eventSourced
+                .Register<CharacterDefined>(Handler)
+                .Register<CharacterRenamed>(Handler);
         }
 
         #endregion
 
         #region Public Interface
 
-        public List<IEvent> PendingEvents { get; } = new();
-
         public Character Rename(Name name)
         {
-            PendingEvents.Add(new CharacterRenamed(name));
+            _eventSourced.Append(new CharacterRenamed(name));
             return this;
         }
+
+        #endregion
+
+        #region Private Interface
+
+        private void Handler(CharacterDefined e)
+        {
+            _projection = _projection with { name = e.Name };
+        }
+
+        private void Handler(CharacterRenamed e)
+        {
+            _projection = _projection with { name = e.Name };
+        }
+
+        #endregion
+
+        #region IEventSourced Implementation
+
+        public IReadOnlyList<IEvent> GetPendingEvents() => _eventSourced.GetPendingEvents();
 
         #endregion
 
@@ -42,5 +77,7 @@ namespace SuperMarioRpg.GameDevelopment
         }
 
         #endregion
+
+        private record Projection(Name name = default);
     }
 }
