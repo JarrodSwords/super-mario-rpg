@@ -5,10 +5,28 @@ namespace DevConsole
 {
     public abstract class ApplicationState : IApplicationState
     {
-        protected Application Application;
         protected Dictionary<char, Option> Options = new();
 
+        #region Creation
+
+        protected ApplicationState(string title)
+        {
+            Title = title;
+        }
+
+        #endregion
+
+        #region Public Interface
+
+        public string Title { get; }
+
+        #endregion
+
         #region Protected Interface
+
+        protected virtual void DisplayData()
+        {
+        }
 
         protected void DisplayOptions()
         {
@@ -31,7 +49,14 @@ namespace DevConsole
 
         #region IApplicationState Implementation
 
-        public abstract IApplicationState Run();
+        public IApplicationState Run()
+        {
+            Clear();
+            WriteLine(Title);
+            DisplayData();
+            DisplayOptions();
+            return Prompt();
+        }
 
         #endregion
     }

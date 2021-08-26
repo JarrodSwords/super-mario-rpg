@@ -1,27 +1,13 @@
-﻿using static System.Console;
-
-namespace DevConsole
+﻿namespace DevConsole
 {
     public class MainMenu : ApplicationState
     {
         #region Creation
 
-        public MainMenu()
+        public MainMenu() : base("Main Menu")
         {
             Options['1'] = new(OpenCharacterManagement, "Character Management");
             Options['2'] = new(Quit, nameof(Quit));
-        }
-
-        #endregion
-
-        #region Public Interface
-
-        public override IApplicationState Run()
-        {
-            Clear();
-            WriteLine("Main Menu\n");
-            DisplayOptions();
-            return Prompt();
         }
 
         #endregion

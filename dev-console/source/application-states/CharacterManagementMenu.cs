@@ -1,28 +1,14 @@
-﻿using static System.Console;
-
-namespace DevConsole
+﻿namespace DevConsole
 {
     public class CharacterManagementMenu : ApplicationState
     {
         #region Creation
 
-        public CharacterManagementMenu()
+        public CharacterManagementMenu() : base("Character Management")
         {
             Options['1'] = new(CreateCharacter, "Create Character");
             Options['2'] = new(Cancel, nameof(Cancel));
             Options['3'] = new(Quit, nameof(Quit));
-        }
-
-        #endregion
-
-        #region Public Interface
-
-        public override IApplicationState Run()
-        {
-            Clear();
-            WriteLine("Character Management\n");
-            DisplayOptions();
-            return Prompt();
         }
 
         #endregion

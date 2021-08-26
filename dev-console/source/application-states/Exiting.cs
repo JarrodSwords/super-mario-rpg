@@ -1,14 +1,14 @@
-﻿using System;
-
-namespace DevConsole
+﻿namespace DevConsole
 {
     public class Exiting : ApplicationState
     {
         public static Exiting Singleton = new();
 
-        #region Public Interface
+        #region Creation
 
-        public override IApplicationState Run() => throw new NotSupportedException();
+        public Exiting() : base(default)
+        {
+        }
 
         #endregion
     }
