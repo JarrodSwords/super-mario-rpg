@@ -11,7 +11,7 @@ namespace DevConsole.Spec
         [Fact]
         public void WhenDisplaying_MainMenu()
         {
-            var menu = new MainMenu();
+            var menu = new Menu();
 
             menu.GetOptions().Should().Contain(
                 new KeyValuePair<byte, string>(1, "Character Management")
