@@ -1,4 +1,4 @@
-﻿using System;
+﻿using static System.Console;
 
 namespace DevConsole
 {
@@ -19,8 +19,8 @@ namespace DevConsole
 
         public override IApplicationState Run()
         {
-            Console.Clear();
-            Console.WriteLine("Character Management\n");
+            Clear();
+            WriteLine("Character Management\n");
             DisplayOptions();
             return Prompt();
         }
