@@ -6,19 +6,19 @@
 
         public Application()
         {
-            ApplicationState = new MainMenu(this);
+            State = new MainMenu(this);
         }
 
         #endregion
 
         #region Public Interface
 
-        public IApplicationState ApplicationState { get; set; }
+        public IApplicationState State { get; set; }
 
         public void Run()
         {
-            while (ApplicationState != Exiting.Singleton)
-                ApplicationState.Run();
+            while (State != Exiting.Singleton)
+                State.Run();
         }
 
         #endregion

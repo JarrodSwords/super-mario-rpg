@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 
 namespace DevConsole
 {
@@ -8,34 +9,34 @@ namespace DevConsole
 
         public MainMenu(Application application) : base(application)
         {
+            Options['2'] = new Tuple<string, Action>("Quit", Quit);
         }
 
         #endregion
 
         #region Public Interface
 
-        public IApplicationState Process(ConsoleKey command)
+        public void DisplayView()
         {
-            if (command == ConsoleKey.D2)
-                Application.ApplicationState = Exiting.Singleton;
+            WriteLine("Main Menu\n");
 
-            return this;
+            foreach (var (key, value) in Options)
+                WriteLine($"{key}. {value.Item1}");
         }
 
         public override void Run()
         {
+            DisplayView();
+            Prompt();
         }
 
-        public IApplicationState WriteView()
-        {
-            Console.WriteLine(
-                @"Main Menu
+        #endregion
 
-1. Character Management
-2. Quit
-"
-            );
-            return this;
+        #region Private Interface
+
+        private void Quit()
+        {
+            Application.State = Exiting.Singleton;
         }
 
         #endregion

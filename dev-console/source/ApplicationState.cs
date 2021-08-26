@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static System.Console;
 
 namespace DevConsole
@@ -6,6 +7,7 @@ namespace DevConsole
     public abstract class ApplicationState : IApplicationState
     {
         protected Application Application;
+        protected Dictionary<char, Tuple<string, Action>> Options = new();
 
         #region Creation
 
@@ -18,10 +20,14 @@ namespace DevConsole
 
         #region Protected Interface
 
-        protected ConsoleKey Prompt(string prompt = default)
+        protected void Prompt(string prompt = default)
         {
-            Write($"{prompt}> ");
-            return ReadKey().Key;
+            Write($"\n{prompt}> ");
+
+            var input = ReadKey().KeyChar;
+
+            if (Options.ContainsKey(input))
+                Options[input].Item2.Invoke();
         }
 
         #endregion
