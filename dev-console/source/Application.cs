@@ -17,12 +17,8 @@
 
         public void Run()
         {
-            while (ApplicationState != Exiting.Instance)
-            {
-                ApplicationState.WriteView();
-                var input = ApplicationState.Prompt();
-                ApplicationState.Process(input);
-            }
+            while (ApplicationState != Exiting.Singleton)
+                ApplicationState.Run();
         }
 
         #endregion

@@ -14,21 +14,19 @@ namespace DevConsole
 
         #region Public Interface
 
-        public override IApplicationState Process(ConsoleKey command)
+        public IApplicationState Process(ConsoleKey command)
         {
             if (command == ConsoleKey.D2)
-                Application.ApplicationState = Exiting.Instance;
+                Application.ApplicationState = Exiting.Singleton;
 
             return this;
         }
 
-        public override ConsoleKey Prompt()
+        public override void Run()
         {
-            Console.Write(":> ");
-            return Console.ReadKey().Key;
         }
 
-        public override IApplicationState WriteView()
+        public IApplicationState WriteView()
         {
             Console.WriteLine(
                 @"Main Menu

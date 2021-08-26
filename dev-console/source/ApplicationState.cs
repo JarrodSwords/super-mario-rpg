@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 
 namespace DevConsole
 {
@@ -15,11 +16,19 @@ namespace DevConsole
 
         #endregion
 
+        #region Protected Interface
+
+        protected ConsoleKey Prompt(string prompt = default)
+        {
+            Write($"{prompt}> ");
+            return ReadKey().Key;
+        }
+
+        #endregion
+
         #region IApplicationState Implementation
 
-        public abstract IApplicationState Process(ConsoleKey key);
-        public abstract ConsoleKey Prompt();
-        public abstract IApplicationState WriteView();
+        public abstract void Run();
 
         #endregion
     }
