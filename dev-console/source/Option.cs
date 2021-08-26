@@ -6,7 +6,7 @@ namespace DevConsole
     {
         #region Creation
 
-        public Option(Action handler, string name)
+        public Option(Func<IApplicationState> handler, string name)
         {
             Handler = handler;
             Name = name;
@@ -16,7 +16,7 @@ namespace DevConsole
 
         #region Public Interface
 
-        public Action Handler { get; }
+        public Func<IApplicationState> Handler { get; }
         public string Name { get; }
 
         #endregion

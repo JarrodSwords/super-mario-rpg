@@ -6,20 +6,9 @@ namespace DevConsole
     {
         public static Exiting Singleton = new();
 
-        #region Creation
-
-        private Exiting() : base(default)
-        {
-        }
-
-        #endregion
-
         #region Public Interface
 
-        public override void Run()
-        {
-            throw new NotSupportedException();
-        }
+        public override IApplicationState Run() => throw new NotSupportedException();
 
         #endregion
     }

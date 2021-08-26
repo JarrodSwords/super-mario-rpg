@@ -6,7 +6,7 @@ namespace DevConsole
     {
         #region Creation
 
-        public MainMenu(Application application) : base(application)
+        public MainMenu()
         {
             Options['1'] = new(OpenCharacterManagement, "Character Management");
             Options['2'] = new(Quit, nameof(Quit));
@@ -16,27 +16,20 @@ namespace DevConsole
 
         #region Public Interface
 
-        public override void Run()
+        public override IApplicationState Run()
         {
             Clear();
             WriteLine("Main Menu\n");
             DisplayOptions();
-            Prompt();
+            return Prompt();
         }
 
         #endregion
 
         #region Private Interface
 
-        private void OpenCharacterManagement()
-        {
-            Application.State = new CharacterManagementMenu(Application);
-        }
-
-        private void Quit()
-        {
-            Application.State = Exiting.Singleton;
-        }
+        private IApplicationState OpenCharacterManagement() => new CharacterManagementMenu();
+        private IApplicationState Quit() => Exiting.Singleton;
 
         #endregion
     }

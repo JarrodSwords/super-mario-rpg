@@ -8,15 +8,6 @@ namespace DevConsole
         protected Application Application;
         protected Dictionary<char, Option> Options = new();
 
-        #region Creation
-
-        protected ApplicationState(Application application)
-        {
-            Application = application;
-        }
-
-        #endregion
-
         #region Protected Interface
 
         protected void DisplayOptions()
@@ -25,21 +16,22 @@ namespace DevConsole
                 WriteLine($"{key}. {value.Name}");
         }
 
-        protected void Prompt(string prompt = default)
+        protected IApplicationState Prompt(string prompt = default)
         {
             Write($"\n{prompt}> ");
 
             var input = ReadKey().KeyChar;
 
-            if (Options.ContainsKey(input))
-                Options[input].Handler.Invoke();
+            return Options.ContainsKey(input)
+                ? Options[input].Handler.Invoke()
+                : this;
         }
 
         #endregion
 
         #region IApplicationState Implementation
 
-        public abstract void Run();
+        public abstract IApplicationState Run();
 
         #endregion
     }

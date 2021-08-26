@@ -6,7 +6,7 @@ namespace DevConsole
     {
         #region Creation
 
-        public CharacterManagementMenu(Application application) : base(application)
+        public CharacterManagementMenu()
         {
             Options['1'] = new(CreateCharacter, "Create Character");
             Options['2'] = new(Cancel, nameof(Cancel));
@@ -17,32 +17,26 @@ namespace DevConsole
 
         #region Public Interface
 
-        public override void Run()
+        public override IApplicationState Run()
         {
             Console.Clear();
-            Console.WriteLine("Main Menu > Character Management\n");
+            Console.WriteLine("Character Management\n");
             DisplayOptions();
-            Prompt();
+            return Prompt();
         }
 
         #endregion
 
         #region Private Interface
 
-        private void Cancel()
-        {
-            Application.State = new MainMenu(Application);
-        }
+        private IApplicationState Cancel() => new MainMenu();
 
-        private void CreateCharacter()
-        {
+        private IApplicationState CreateCharacter() =>
+
             //Application.State = new CreateCharacterMenu();
-        }
+            this;
 
-        private void Quit()
-        {
-            Application.State = Exiting.Singleton;
-        }
+        private IApplicationState Quit() => Exiting.Singleton;
 
         #endregion
     }

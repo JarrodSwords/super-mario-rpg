@@ -2,6 +2,6 @@
 {
     public interface IApplicationState
     {
-        void Run();
+        IApplicationState Run();
     }
 }
