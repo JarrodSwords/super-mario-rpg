@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using static System.Console;
 
 namespace DevConsole
@@ -7,7 +6,7 @@ namespace DevConsole
     public abstract class ApplicationState : IApplicationState
     {
         protected Application Application;
-        protected Dictionary<char, Tuple<string, Action>> Options = new();
+        protected Dictionary<char, Option> Options = new();
 
         #region Creation
 
@@ -20,6 +19,12 @@ namespace DevConsole
 
         #region Protected Interface
 
+        protected void DisplayOptions()
+        {
+            foreach (var (key, value) in Options)
+                WriteLine($"{key}. {value.Name}");
+        }
+
         protected void Prompt(string prompt = default)
         {
             Write($"\n{prompt}> ");
@@ -27,7 +32,7 @@ namespace DevConsole
             var input = ReadKey().KeyChar;
 
             if (Options.ContainsKey(input))
-                Options[input].Item2.Invoke();
+                Options[input].Handler.Invoke();
         }
 
         #endregion

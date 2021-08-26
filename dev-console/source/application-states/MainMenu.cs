@@ -1,5 +1,4 @@
-﻿using System;
-using static System.Console;
+﻿using static System.Console;
 
 namespace DevConsole
 {
@@ -9,24 +8,17 @@ namespace DevConsole
 
         public MainMenu(Application application) : base(application)
         {
-            Options['2'] = new Tuple<string, Action>("Quit", Quit);
+            Options['2'] = new(Quit, nameof(Quit));
         }
 
         #endregion
 
         #region Public Interface
 
-        public void DisplayView()
-        {
-            WriteLine("Main Menu\n");
-
-            foreach (var (key, value) in Options)
-                WriteLine($"{key}. {value.Item1}");
-        }
-
         public override void Run()
         {
-            DisplayView();
+            WriteLine("Main Menu\n");
+            DisplayOptions();
             Prompt();
         }
 
