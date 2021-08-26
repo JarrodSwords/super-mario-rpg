@@ -1,12 +1,14 @@
-﻿using System;
-
-namespace dev_console
+﻿namespace DevConsole
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        #region Static Interface
+
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            new Application().Run();
         }
+
+        #endregion
     }
 }

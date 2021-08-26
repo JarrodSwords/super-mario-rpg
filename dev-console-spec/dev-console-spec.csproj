@@ -25,4 +25,8 @@
     <ProjectReference Include="..\dev-console\dev-console.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="source\" />
+  </ItemGroup>
+
 </Project>
