@@ -9,7 +9,7 @@ namespace DevConsole
         private static readonly Assembly[] Assemblies =
         {
             typeof(AutofacModule).Assembly,
-            typeof(Character).Assembly
+            typeof(CreateCharacter).Assembly
         };
 
         #region Static Interface

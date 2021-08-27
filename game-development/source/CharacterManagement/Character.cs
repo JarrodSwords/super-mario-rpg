@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using SuperMarioRpg.Domain;
 
 namespace SuperMarioRpg.GameDevelopment.CharacterManagement
@@ -12,6 +14,8 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 
         private Character()
         {
+            Id = Guid.NewGuid();
+
             _eventProcessor
                 .Register<CharacterCreated>(Handler)
                 .Register<CharacterRenamed>(Handler)
@@ -21,13 +25,15 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
         private Character(Name name) : this()
         {
             _eventProcessor.Append(
-                new CharacterCreated(),
-                new CharacterRenamed(name)
+                new CharacterCreated(Id),
+                new CharacterRenamed(Id, name)
             );
         }
 
         private Character(params IEvent[] events) : this()
         {
+            Id = ((CharacterCreated) events.ToList().First()).CharacterId;
+
             _eventProcessor.Replay(events);
         }
 
@@ -35,14 +41,14 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 
         #region Public Interface
 
-        public Id Id => _projection.Id ?? ((CharacterCreated) _eventProcessor.GetPendingEvents()[0]).CharacterId;
+        public Id Id { get; }
 
         public Character Rename(Name name)
         {
             _eventProcessor.Append(
                 name == _projection.Name
                     ? new RenameRejected()
-                    : new CharacterRenamed(name)
+                    : new CharacterRenamed(Id, name)
             );
 
             return this;

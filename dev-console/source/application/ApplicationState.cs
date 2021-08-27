@@ -29,11 +29,13 @@ namespace DevConsole
 
         protected void AppendOptions(StringBuilder builder)
         {
+            builder.AppendLine();
+
             foreach (var (key, value) in Options)
                 builder.Append($"\n{key}. {value.Name}");
         }
 
-        protected virtual void AppendTitle(StringBuilder builder) => builder.AppendLine($"{Title}");
+        protected virtual void AppendTitle(StringBuilder builder) => builder.Append($"{Title}");
 
         protected string PromptData(string prompt = default)
         {

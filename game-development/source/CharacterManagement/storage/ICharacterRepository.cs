@@ -1,4 +1,5 @@
-﻿using SuperMarioRpg.Domain;
+﻿using System;
+using SuperMarioRpg.Domain;
 
 namespace SuperMarioRpg.GameDevelopment.CharacterManagement
 {
@@ -6,5 +7,6 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
     {
         ICharacterRepository Create(Character character);
         Character Find(Id id);
+        ICharacterRepository Subscribe(Action<IEvent> handler);
     }
 }

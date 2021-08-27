@@ -6,12 +6,17 @@ namespace DevConsole
     public class CharacterManagementMenu : ApplicationState
     {
         private readonly ICharacterManager _characterManager;
+        private readonly CharactersProjection _charactersProjection;
 
         #region Creation
 
-        public CharacterManagementMenu(ICharacterManager characterManager) : base("Character Management")
+        public CharacterManagementMenu(
+            ICharacterManager characterManager,
+            CharactersProjection charactersProjection
+        ) : base("Character Management")
         {
             _characterManager = characterManager;
+            _charactersProjection = charactersProjection;
 
             Options['1'] = new(CreateCharacter, "Create Character");
             Options['2'] = new(Cancel, nameof(Cancel));
@@ -30,6 +35,13 @@ namespace DevConsole
 
         protected override void AppendData(StringBuilder builder)
         {
+            if (_charactersProjection.IsEmpty)
+                return;
+
+            builder.AppendLine();
+
+            foreach (var character in _charactersProjection.Characters)
+                builder.Append($"\n  - {character.Name}");
         }
 
         #endregion

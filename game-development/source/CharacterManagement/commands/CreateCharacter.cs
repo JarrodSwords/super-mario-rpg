@@ -37,9 +37,9 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
     {
         #region Creation
 
-        public CharacterCreated()
+        public CharacterCreated(Guid id)
         {
-            CharacterId = Guid.NewGuid();
+            CharacterId = id;
         }
 
         #endregion

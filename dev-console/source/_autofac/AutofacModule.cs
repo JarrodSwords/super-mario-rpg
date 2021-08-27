@@ -33,7 +33,9 @@ namespace DevConsole
 
             builder.RegisterAssemblyModules(assemblies);
 
-            return builder.Build();
+            var container = builder.Build();
+
+            return container;
         }
 
         #endregion
