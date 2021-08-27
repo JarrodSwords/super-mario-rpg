@@ -4,9 +4,9 @@
     {
         #region Creation
 
-        public Application()
+        public Application(MainMenu mainMenu)
         {
-            State = new MainMenu();
+            State = mainMenu;
         }
 
         #endregion

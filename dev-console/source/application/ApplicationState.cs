@@ -37,7 +37,14 @@ namespace DevConsole
 
         protected virtual void AppendTitle(StringBuilder builder) => builder.AppendLine($"{Title}");
 
-        protected IApplicationState Prompt(string prompt = default)
+        protected string PromptData(string prompt = default)
+        {
+            Write($"\n\n{prompt}> ");
+
+            return ReadLine();
+        }
+
+        protected IApplicationState PromptSelection(string prompt = default)
         {
             Write($"\n\n{prompt}> ");
 
@@ -63,7 +70,7 @@ namespace DevConsole
             Clear();
             Write(sb.ToString());
 
-            return Prompt();
+            return PromptSelection();
         }
 
         #endregion

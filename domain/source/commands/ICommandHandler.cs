@@ -2,6 +2,6 @@
 {
     public interface ICommandHandler<in T> where T : ICommand
     {
-        IResult Handler(T command);
+        IResult Handle(T command);
     }
 }

@@ -9,4 +9,8 @@
     <ProjectReference Include="..\domain\domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="autofac" Version="6.2.0" />
+  </ItemGroup>
+
 </Project>
