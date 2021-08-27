@@ -1,20 +1,17 @@
 ﻿using System.Text;
-using SuperMarioRpg.Domain;
 using SuperMarioRpg.GameDevelopment.CharacterManagement;
 
 namespace DevConsole
 {
     public class CharacterManagementMenu : ApplicationState
     {
-        private readonly ICommandHandler<CreateCharacter> _createCharacterHandler;
+        private readonly ICharacterManager _characterManager;
 
         #region Creation
 
-        public CharacterManagementMenu(
-            ICommandHandler<CreateCharacter> createCharacterHandler
-        ) : base("Character Management")
+        public CharacterManagementMenu(ICharacterManager characterManager) : base("Character Management")
         {
-            _createCharacterHandler = createCharacterHandler;
+            _characterManager = characterManager;
 
             Options['1'] = new(CreateCharacter, "Create Character");
             Options['2'] = new(Cancel, nameof(Cancel));
@@ -44,7 +41,7 @@ namespace DevConsole
         private IApplicationState CreateCharacter()
         {
             var name = PromptData("Name");
-            var result = _createCharacterHandler.Handle(new CreateCharacter(name));
+            var result = _characterManager.Create(new CreateCharacter(name));
 
             return this;
         }
