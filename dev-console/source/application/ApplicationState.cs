@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using static System.Console;
 
 namespace DevConsole
@@ -24,19 +25,21 @@ namespace DevConsole
 
         #region Protected Interface
 
-        protected virtual void DisplayData()
+        protected virtual void AppendData(StringBuilder builder)
         {
         }
 
-        protected void DisplayOptions()
+        protected void AppendOptions(StringBuilder builder)
         {
             foreach (var (key, value) in Options)
-                WriteLine($"{key}. {value.Name}");
+                builder.Append($"\n{key}. {value.Name}");
         }
+
+        protected virtual void AppendTitle(StringBuilder builder) => builder.AppendLine($"{Title}");
 
         protected IApplicationState Prompt(string prompt = default)
         {
-            Write($"\n{prompt}> ");
+            Write($"\n\n{prompt}> ");
 
             var input = ReadKey().KeyChar;
 
@@ -51,10 +54,15 @@ namespace DevConsole
 
         public IApplicationState Run()
         {
+            var sb = new StringBuilder();
+
+            AppendTitle(sb);
+            AppendData(sb);
+            AppendOptions(sb);
+
             Clear();
-            WriteLine(Title);
-            DisplayData();
-            DisplayOptions();
+            Write(sb.ToString());
+
             return Prompt();
         }
 

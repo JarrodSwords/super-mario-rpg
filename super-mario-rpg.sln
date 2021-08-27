@@ -17,8 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{3FE71D6C-2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dev-console", "dev-console\dev-console.csproj", "{89DE1481-D63C-46EB-B99F-0703D303629E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dev-console-spec", "dev-console-spec\dev-console-spec.csproj", "{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,18 +87,6 @@ Global
 		{89DE1481-D63C-46EB-B99F-0703D303629E}.Release|x64.Build.0 = Release|Any CPU
 		{89DE1481-D63C-46EB-B99F-0703D303629E}.Release|x86.ActiveCfg = Release|Any CPU
 		{89DE1481-D63C-46EB-B99F-0703D303629E}.Release|x86.Build.0 = Release|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Debug|x64.Build.0 = Debug|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Debug|x86.Build.0 = Debug|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Release|x64.ActiveCfg = Release|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Release|x64.Build.0 = Release|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Release|x86.ActiveCfg = Release|Any CPU
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,7 +97,6 @@ Global
 		{CDDD7D51-0D7F-4275-AE7D-52A1B912EFC0} = {4F2C9C26-EC7D-4A31-AA27-A3FC033D4601}
 		{38243BCD-CD01-47B9-AC59-6D7D882B5AB8} = {4F2C9C26-EC7D-4A31-AA27-A3FC033D4601}
 		{89DE1481-D63C-46EB-B99F-0703D303629E} = {4F2C9C26-EC7D-4A31-AA27-A3FC033D4601}
-		{D45C0EA3-A4A7-421E-BC9F-6A6D78607EDD} = {4F2C9C26-EC7D-4A31-AA27-A3FC033D4601}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5987D5CE-1135-4DDC-A6E3-470DC635A5F9}
