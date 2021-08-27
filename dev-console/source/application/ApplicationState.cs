@@ -48,7 +48,7 @@ namespace DevConsole
         {
             Write($"\n\n{prompt}> ");
 
-            int.TryParse(ReadKey().KeyChar.ToString(), out var input);
+            _ = int.TryParse(ReadKey().KeyChar.ToString(), out var input);
 
             if (input == default)
                 return this;
