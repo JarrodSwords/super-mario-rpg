@@ -6,7 +6,7 @@ namespace DevConsole
 {
     public abstract class ApplicationState : IApplicationState
     {
-        protected Dictionary<char, Option> Options = new();
+        protected Dictionary<int, Option> Options = new();
 
         #region Creation
 
@@ -29,11 +29,13 @@ namespace DevConsole
 
         protected void AppendOptions(StringBuilder builder)
         {
+            builder.AppendLine();
+
             foreach (var (key, value) in Options)
                 builder.Append($"\n{key}. {value.Name}");
         }
 
-        protected virtual void AppendTitle(StringBuilder builder) => builder.AppendLine($"{Title}");
+        protected virtual void AppendTitle(StringBuilder builder) => builder.Append($"{Title}");
 
         protected string PromptData(string prompt = default)
         {
@@ -46,7 +48,10 @@ namespace DevConsole
         {
             Write($"\n\n{prompt}> ");
 
-            var input = ReadKey().KeyChar;
+            _ = int.TryParse(ReadKey().KeyChar.ToString(), out var input);
+
+            if (input == default)
+                return this;
 
             return Options.ContainsKey(input)
                 ? Options[input].Handler.Invoke()

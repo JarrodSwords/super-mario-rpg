@@ -8,8 +8,8 @@ namespace DevConsole
 
         public MainMenu() : base("Main Menu")
         {
-            Options['1'] = new(OpenCharacterManagement, "Character Management");
-            Options['2'] = new(Quit, nameof(Quit));
+            Options[1] = new(OpenCharacterManagement, "Character Management");
+            Options[2] = new(Quit, nameof(Quit));
         }
 
         #endregion

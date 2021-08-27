@@ -1,24 +1,33 @@
-﻿using System.Text;
-using SuperMarioRpg.Domain;
+﻿using System.Collections.Generic;
+using System.Text;
 using SuperMarioRpg.GameDevelopment.CharacterManagement;
 
 namespace DevConsole
 {
     public class CharacterManagementMenu : ApplicationState
     {
-        private readonly ICommandHandler<CreateCharacter> _createCharacterHandler;
+        private readonly ICharacterManager _characterManager;
+        private readonly CharactersProjection _charactersProjection;
 
         #region Creation
 
         public CharacterManagementMenu(
-            ICommandHandler<CreateCharacter> createCharacterHandler
+            ICharacterManager characterManager,
+            CharactersProjection charactersProjection
         ) : base("Character Management")
         {
-            _createCharacterHandler = createCharacterHandler;
+            _characterManager = characterManager;
+            _charactersProjection = charactersProjection;
 
-            Options['1'] = new(CreateCharacter, "Create Character");
-            Options['2'] = new(Cancel, nameof(Cancel));
-            Options['3'] = new(Quit, nameof(Quit));
+            var options = new List<Option>
+            {
+                new(CreateCharacter, "Create Character"),
+                new(Cancel, nameof(Cancel)),
+                new(Quit, nameof(Quit))
+            };
+
+            for (var i = 1; i <= options.Count; i++)
+                Options.Add(i, options[i - 1]);
         }
 
         #endregion
@@ -33,6 +42,13 @@ namespace DevConsole
 
         protected override void AppendData(StringBuilder builder)
         {
+            if (_charactersProjection.IsEmpty)
+                return;
+
+            builder.AppendLine();
+
+            foreach (var character in _charactersProjection.Characters)
+                builder.Append($"\n  - {character.Name}");
         }
 
         #endregion
@@ -44,7 +60,7 @@ namespace DevConsole
         private IApplicationState CreateCharacter()
         {
             var name = PromptData("Name");
-            var result = _createCharacterHandler.Handle(new CreateCharacter(name));
+            var result = _characterManager.Create(new CreateCharacter(name));
 
             return this;
         }

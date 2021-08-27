@@ -13,6 +13,11 @@ namespace SuperMarioRpg.GameDevelopment
                 .RegisterAssemblyTypes(typeof(AutofacModule).Assembly)
                 .Except<Character>()
                 .AsImplementedInterfaces();
+
+            builder
+                .RegisterType<CharacterRepository>()
+                .As<ICharacterRepository>()
+                .SingleInstance();
         }
 
         #endregion
