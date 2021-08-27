@@ -12,19 +12,14 @@ namespace DevConsole
             typeof(Character).Assembly
         };
 
-        #region Private Interface
-
-        private static IContainer Container { get; set; }
-
-        #endregion
-
         #region Static Interface
 
         private static void Main(string[] args)
         {
-            Container = AutofacModule.Create(Assemblies);
-
-            Container.Resolve<Application>().Run();
+            AutofacModule
+                .CreateContainer(Assemblies)
+                .Resolve<Application>()
+                .Run();
         }
 
         #endregion

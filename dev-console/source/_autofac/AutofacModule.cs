@@ -13,6 +13,11 @@ namespace DevConsole
             builder.RegisterAssemblyTypes(typeof(AutofacModule).Assembly);
 
             builder
+                .RegisterType<MainMenu>()
+                .InstancePerLifetimeScope()
+                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+
+            builder
                 .RegisterType<CharacterManagementMenu>()
                 .InstancePerLifetimeScope()
                 .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
@@ -22,7 +27,7 @@ namespace DevConsole
 
         #region Static Interface
 
-        public static IContainer Create(params Assembly[] assemblies)
+        public static IContainer CreateContainer(params Assembly[] assemblies)
         {
             var builder = new ContainerBuilder();
 

@@ -25,9 +25,7 @@ namespace DevConsole
 
         #region Protected Interface
 
-        protected virtual void AppendData(StringBuilder builder)
-        {
-        }
+        protected abstract void AppendData(StringBuilder builder);
 
         protected void AppendOptions(StringBuilder builder)
         {

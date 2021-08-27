@@ -1,4 +1,5 @@
-﻿using SuperMarioRpg.Domain;
+﻿using System.Text;
+using SuperMarioRpg.Domain;
 using SuperMarioRpg.GameDevelopment.CharacterManagement;
 
 namespace DevConsole
@@ -25,6 +26,14 @@ namespace DevConsole
         #region Public Interface
 
         public MainMenu MainMenu { get; set; }
+
+        #endregion
+
+        #region Protected Interface
+
+        protected override void AppendData(StringBuilder builder)
+        {
+        }
 
         #endregion
 

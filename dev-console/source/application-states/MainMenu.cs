@@ -1,23 +1,36 @@
-﻿namespace DevConsole
+﻿using System.Text;
+
+namespace DevConsole
 {
     public class MainMenu : ApplicationState
     {
-        private readonly CharacterManagementMenu _characterManagementMenu;
-
         #region Creation
 
-        public MainMenu(CharacterManagementMenu characterManagementMenu) : base("Main Menu")
+        public MainMenu() : base("Main Menu")
         {
-            _characterManagementMenu = characterManagementMenu;
             Options['1'] = new(OpenCharacterManagement, "Character Management");
             Options['2'] = new(Quit, nameof(Quit));
         }
 
         #endregion
 
+        #region Public Interface
+
+        public CharacterManagementMenu CharacterManagementMenu { get; set; }
+
+        #endregion
+
+        #region Protected Interface
+
+        protected override void AppendData(StringBuilder builder)
+        {
+        }
+
+        #endregion
+
         #region Private Interface
 
-        private IApplicationState OpenCharacterManagement() => _characterManagementMenu;
+        private IApplicationState OpenCharacterManagement() => CharacterManagementMenu;
         private IApplicationState Quit() => Exiting.Singleton;
 
         #endregion
