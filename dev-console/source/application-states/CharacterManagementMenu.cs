@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using SuperMarioRpg.GameDevelopment.CharacterManagement;
 
 namespace DevConsole
@@ -18,9 +19,15 @@ namespace DevConsole
             _characterManager = characterManager;
             _charactersProjection = charactersProjection;
 
-            Options['1'] = new(CreateCharacter, "Create Character");
-            Options['2'] = new(Cancel, nameof(Cancel));
-            Options['3'] = new(Quit, nameof(Quit));
+            var options = new List<Option>
+            {
+                new(CreateCharacter, "Create Character"),
+                new(Cancel, nameof(Cancel)),
+                new(Quit, nameof(Quit))
+            };
+
+            for (var i = 1; i <= options.Count; i++)
+                Options.Add(i, options[i - 1]);
         }
 
         #endregion

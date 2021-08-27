@@ -6,7 +6,7 @@ namespace DevConsole
 {
     public abstract class ApplicationState : IApplicationState
     {
-        protected Dictionary<char, Option> Options = new();
+        protected Dictionary<int, Option> Options = new();
 
         #region Creation
 
@@ -48,7 +48,10 @@ namespace DevConsole
         {
             Write($"\n\n{prompt}> ");
 
-            var input = ReadKey().KeyChar;
+            int.TryParse(ReadKey().KeyChar.ToString(), out var input);
+
+            if (input == default)
+                return this;
 
             return Options.ContainsKey(input)
                 ? Options[input].Handler.Invoke()

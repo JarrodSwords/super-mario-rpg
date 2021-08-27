@@ -37,6 +37,12 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
             return this;
         }
 
+        public ICharacterRepository Update(Character character)
+        {
+            _streams[character.Id].AddRange(character.GetPendingEvents());
+            return this;
+        }
+
         #endregion
     }
 }

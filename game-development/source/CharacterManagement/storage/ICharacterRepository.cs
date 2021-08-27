@@ -8,5 +8,6 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
         ICharacterRepository Create(Character character);
         Character Find(Id id);
         ICharacterRepository Subscribe(Action<IEvent> handler);
+        ICharacterRepository Update(Character character);
     }
 }
