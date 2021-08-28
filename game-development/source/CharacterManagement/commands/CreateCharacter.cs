@@ -33,21 +33,5 @@ namespace SuperMarioRpg.GameDevelopment.CharacterManagement
         }
     }
 
-    public record CharacterCreated : Event
-    {
-        #region Creation
-
-        public CharacterCreated(Guid id)
-        {
-            CharacterId = id;
-        }
-
-        #endregion
-
-        #region Public Interface
-
-        public Guid CharacterId { get; }
-
-        #endregion
-    }
+    public record CharacterCreated(Guid CharacterId) : Event;
 }
