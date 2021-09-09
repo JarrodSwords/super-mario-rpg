@@ -2,12 +2,6 @@
 
 namespace SuperMarioRpg.Domain
 {
-    public interface IMessageStore
-    {
-        void Publish(StreamId streamId, IEvent @event);
-        bool StreamExists(StreamId streamId);
-    }
-
     public class InMemoryMessageStore : IMessageStore
     {
         private readonly Dictionary<StreamId, List<IEvent>> _streams = new();

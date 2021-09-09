@@ -2,16 +2,16 @@
 using FluentAssertions;
 using Xunit;
 
-namespace SuperMarioRpg.Domain.Spec.IMessageStoreSpec
+namespace SuperMarioRpg.Domain.Spec
 {
-    public abstract class GivenANewEntityStream
+    public abstract class MessageStoreSpec
     {
         #region Core
 
         private readonly IMessageStore _messageStore;
         private readonly StreamId _streamId;
 
-        protected GivenANewEntityStream(IMessageStore messageStore)
+        protected MessageStoreSpec(IMessageStore messageStore)
         {
             _messageStore = messageStore;
 
@@ -33,20 +33,7 @@ namespace SuperMarioRpg.Domain.Spec.IMessageStoreSpec
         }
 
         #endregion
-    }
 
-    public class GivenAnInMemoryMessageStore : GivenANewEntityStream
-    {
-        #region Creation
-
-        public GivenAnInMemoryMessageStore() : base(new InMemoryMessageStore())
-        {
-        }
-
-        #endregion
-    }
-
-    internal record FooCreated(Guid FooId) : Event
-    {
+        private record FooCreated(Guid FooId) : Event;
     }
 }
