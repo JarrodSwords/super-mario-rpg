@@ -23,3 +23,5 @@
 	* leaning towards "no" because it may not be beneficil for any other reason, and I'm yet to encounter the situation where you would need to do the above
 
 * does a category stream actually contain duplicate events or event references?
+
+* is there anything that ties an event to a stream other than where it's placed?

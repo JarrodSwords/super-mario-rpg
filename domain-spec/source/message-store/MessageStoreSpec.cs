@@ -9,17 +9,10 @@ namespace SuperMarioRpg.Domain.Spec
         #region Core
 
         private readonly IMessageStore _messageStore;
-        private readonly StreamId _streamId;
 
         protected MessageStoreSpec(IMessageStore messageStore)
         {
             _messageStore = messageStore;
-
-            var fooId = Guid.NewGuid();
-            var fooCreated = new FooCreated(fooId);
-            _streamId = new StreamId(fooId, false, "foo");
-
-            _messageStore.Publish(_streamId, fooCreated);
         }
 
         #endregion
@@ -27,13 +20,37 @@ namespace SuperMarioRpg.Domain.Spec
         #region Test Methods
 
         [Fact]
-        public void WhenAnEventIsPublished_ThenAnEntityStreamIsCreated()
+        public void WhenPublishingAnEvent_WithAPreExistingStream_ThenTheEventIsAppendedToTheStream()
         {
-            _messageStore.StreamExists(_streamId).Should().BeTrue();
+            var fooId = Guid.NewGuid();
+            var fooCreated = new FooCreated(fooId);
+            var fooRenamed = new FooRenamed(fooId);
+            var streamId = new StreamId(fooId, false, "foo");
+
+            var stream = _messageStore
+                .Publish(streamId, fooCreated)
+                .Publish(streamId, fooRenamed)
+                .GetStream(streamId);
+
+            stream.Events.Should().ContainInOrder(fooCreated, fooRenamed);
+        }
+
+        [Fact]
+        public void WhenPublishingAnEvent_WithoutAPreExistingStream_ThenAnEntityStreamIsCreated()
+        {
+            var fooId = Guid.NewGuid();
+            var fooCreated = new FooCreated(fooId);
+            var streamId = new StreamId(fooId, false, "foo");
+
+            _messageStore.Publish(streamId, fooCreated);
+
+            _messageStore.StreamExists(streamId).Should().BeTrue();
         }
 
         #endregion
 
         private record FooCreated(Guid FooId) : Event;
+
+        private record FooRenamed(Guid FooId) : Event;
     }
 }
