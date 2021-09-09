@@ -1,7 +1,6 @@
 ﻿using System;
-using SuperMarioRpg.Domain;
 
-namespace SuperMarioRpg.GameDevelopment
+namespace SuperMarioRpg.Domain
 {
     public class Name : TinyType<string>
     {
