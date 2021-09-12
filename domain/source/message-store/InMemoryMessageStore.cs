@@ -10,12 +10,12 @@ namespace SuperMarioRpg.Domain
 
         public Stream GetStream(StreamId streamId) => StreamExists(streamId) ? _streams[streamId] : null;
 
-        public IMessageStore Publish(StreamId streamId, IEvent @event)
+        public IMessageStore Publish(StreamId streamId, params IEvent[] events)
         {
             if (StreamExists(streamId))
-                _streams[streamId].Add(@event);
+                _streams[streamId].Add(events);
             else
-                _streams[streamId] = new Stream(streamId, @event);
+                _streams[streamId] = new Stream(streamId, events);
 
             return this;
         }

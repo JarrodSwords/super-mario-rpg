@@ -8,6 +8,7 @@ namespace SuperMarioRpg.Domain.Spec
     {
         #region Core
 
+        private readonly Name _componentName = "foo";
         private readonly IMessageStore _messageStore;
 
         protected MessageStoreSpec(IMessageStore messageStore)
@@ -20,12 +21,17 @@ namespace SuperMarioRpg.Domain.Spec
         #region Test Methods
 
         [Fact]
+        public void GivenASubscription_WhenAnEventIsPublished_ThenAlertSubscriber()
+        {
+        }
+
+        [Fact]
         public void WhenPublishingAnEvent_WithAPreExistingStream_ThenTheEventIsAppendedToTheStream()
         {
             var fooId = Guid.NewGuid();
             var fooCreated = new FooCreated(fooId);
             var fooRenamed = new FooRenamed(fooId);
-            var streamId = new StreamId(fooId, false, "foo");
+            var streamId = new StreamId(_componentName, fooId);
 
             var stream = _messageStore
                 .Publish(streamId, fooCreated)
@@ -36,13 +42,24 @@ namespace SuperMarioRpg.Domain.Spec
         }
 
         [Fact]
+        public void WhenPublishingAnEvent_WithoutAPreExistingStream_ThenACategoryStreamIsCreated()
+        {
+            var fooId = Guid.NewGuid();
+            var entityStreamId = new StreamId(_componentName, fooId);
+            var categoryStreamId = new StreamId(_componentName);
+
+            _messageStore.Publish(entityStreamId, new FooCreated(fooId));
+
+            _messageStore.StreamExists(categoryStreamId).Should().BeTrue();
+        }
+
+        [Fact]
         public void WhenPublishingAnEvent_WithoutAPreExistingStream_ThenAnEntityStreamIsCreated()
         {
             var fooId = Guid.NewGuid();
-            var fooCreated = new FooCreated(fooId);
-            var streamId = new StreamId(fooId, false, "foo");
+            var streamId = new StreamId(_componentName, fooId);
 
-            _messageStore.Publish(streamId, fooCreated);
+            _messageStore.Publish(streamId, new FooCreated(fooId));
 
             _messageStore.StreamExists(streamId).Should().BeTrue();
         }

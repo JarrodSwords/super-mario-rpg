@@ -6,11 +6,11 @@ namespace SuperMarioRpg.Domain
     {
         #region Creation
 
-        public StreamId(Id entityId, bool isCommand, Name name)
+        public StreamId(Name name, Id entityId = default, bool isCommand = false)
         {
+            Name = name;
             EntityId = entityId;
             IsCommand = isCommand;
-            Name = name;
         }
 
         #endregion
