@@ -21,11 +21,6 @@ namespace SuperMarioRpg.Domain.Spec
         #region Test Methods
 
         [Fact]
-        public void GivenASubscription_WhenAnEventIsPublished_ThenAlertSubscriber()
-        {
-        }
-
-        [Fact]
         public void WhenPublishingAnEvent_WithAPreExistingStream_ThenTheEventIsAppendedToTheStream()
         {
             var fooId = Guid.NewGuid();
